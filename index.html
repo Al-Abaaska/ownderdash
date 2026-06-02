@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OwnerDash — Master Your Business Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1A6EFF;
+  --blue-dark: #0F52CC;
+  --blue-mid: #3B82F6;
+  --blue-glow: rgba(26,110,255,0.18);
+  --green: #00D48C;
+  --amber: #FF9F45;
+  --red: #FF5C72;
+  --text: #050D1A;
+  --text-2: #3A4A5E;
+  --muted: #6B7A93;
+  --border: rgba(26,110,255,0.12);
+  --border-soft: rgba(0,0,0,0.07);
+  --bg: #F4F7FF;
+  --bg-card: #ffffff;
+  --white: #ffffff;
+  --glass: rgba(255,255,255,0.72);
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-card: 0 4px 24px rgba(13,27,60,0.08), 0 1px 4px rgba(13,27,60,0.04);
+  --shadow-float: 0 20px 60px rgba(13,27,60,0.14), 0 4px 16px rgba(13,27,60,0.08);
+  --shadow-glow: 0 0 40px rgba(26,110,255,0.2);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.022'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* ─── NAV ─── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  height: 68px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border-soft);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  text-decoration: none;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.logo-icon {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(145deg, #2E7FFF, #0A52D4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(26,110,255,0.35);
+}
+
+.logo span { color: var(--blue); }
+
+.nav-right { display: flex; align-items: center; gap: 12px; }
+
+.btn-nav-ghost {
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-nav-ghost:hover { background: var(--bg); color: var(--blue); }
+
+.btn-download {
+  background: var(--text);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  letter-spacing: -0.1px;
+}
+.btn-download:hover { background: var(--blue); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,110,255,0.3); }
+
+/* ─── HERO ─── */
+.hero {
+  position: relative;
+  padding: 90px 5% 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  min-height: 90vh;
+  overflow: hidden;
+}
+
+/* Mesh gradient background */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(26,110,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 80% 20%, rgba(0,212,140,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 100%, rgba(26,110,255,0.04) 0%, transparent 60%),
+    #FAFBFF;
+  z-index: 0;
+}
+
+/* Decorative grid */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(26,110,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,110,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
+  z-index: 0;
+}
+
+.hero-left {
+  flex: 1;
+  max-width: 540px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--blue);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 14px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 12px var(--blue-glow);
+  letter-spacing: 0.2px;
+  animation: fadeSlideUp 0.6s ease both;
+}
+
+.badge-dot {
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.hero h1 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--text);
+  margin-bottom: 22px;
+  animation: fadeSlideUp 0.6s ease 0.1s both;
+}
+
+.hero h1 .accent {
+  background: linear-gradient(135deg, #1A6EFF 0%, #00B4FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 44px;
+  max-width: 430px;
+  font-weight: 400;
+  animation: fadeSlideUp 0.6s ease 0.2s both;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  animation: fadeSlideUp 0.6s ease 0.3s both;
+}
+
+.btn-primary {
+  background: linear-gradient(145deg, #2578FF, #1260E8);
+  color: #fff;
+  border: none;
+  padding: 16px 30px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 28px rgba(26,110,255,0.35), 0 1px 0 rgba(255,255,255,0.2) inset;
+  letter-spacing: -0.2px;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(26,110,255,0.4), 0 1px 0 rgba(255,255,255,0.2) inset; }
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--text);
+  border: 1.5px solid var(--border-soft);
+  padding: 15px 28px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, color 0.2s;
+  box-shadow: var(--shadow-card);
+}
+.btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-float); }
+
+/* ─── HERO RIGHT / PHONE ─── */
+.hero-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 540px;
+  z-index: 2;
+}
+
+/* Glow behind phone */
+.phone-glow {
+  position: absolute;
+  width: 320px;
+  height: 420px;
+  background: radial-gradient(ellipse, rgba(26,110,255,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.phone-wrap {
+  position: relative;
+  z-index: 2;
+  animation: floatPhone 6s ease-in-out infinite;
+}
+
+@keyframes floatPhone {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.phone-frame {
+  width: 268px;
+  background: linear-gradient(175deg, #1a2540, #0a1020);
+  border-radius: 40px;
+  padding: 12px;
+  box-shadow:
+    0 40px 100px rgba(5,13,26,0.4),
+    0 0 0 1px rgba(255,255,255,0.07),
+    0 0 0 6px rgba(26,110,255,0.04) inset;
+  position: relative;
+}
+
+/* Camera notch */
+.phone-frame::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.phone-screen {
+  background: #f7f9fc;
+  border-radius: 30px;
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.phone-status {
+  background: #fff;
+  padding: 14px 14px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.phone-status-title { font-size: 11.5px; font-weight: 700; color: #050D1A; font-family: 'Bricolage Grotesque', sans-serif; letter-spacing: -0.3px; }
+.phone-status-right { display: flex; align-items: center; gap: 5px; font-size: 8px; color: #8a9bb5; }
+.status-dot { width: 5px; height: 5px; background: var(--green); border-radius: 50%; }
+
+.phone-profit-card {
+  background: linear-gradient(145deg, #1A6EFF, #0A4FCC);
+  margin: 8px 10px;
+  border-radius: 16px;
+  padding: 14px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.phone-profit-card::before {
+  content: '';
+  position: absolute;
+  top: -20px; right: -20px;
+  width: 80px; height: 80px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+.phone-profit-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px; right: 20px;
+  width: 100px; height: 100px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+}
+
+.profit-label { font-size: 8px; opacity: 0.7; margin-bottom: 5px; letter-spacing: 0.5px; text-transform: uppercase; }
+.profit-value { font-size: 24px; font-weight: 800; font-family: 'Bricolage Grotesque', sans-serif; margin-bottom: 7px; letter-spacing: -1px; }
+.profit-badge {
+  background: rgba(255,255,255,0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 7.5px;
+  padding: 3px 8px;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+.phone-stats {
+  display: flex;
+  gap: 6px;
+  padding: 0 10px 8px;
+}
+
+.phone-stat {
+  flex: 1;
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 9px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.phone-stat-label { font-size: 7px; color: #8a9bb5; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.3px; }
+.phone-stat-value { font-weight: 700; color: #050D1A; font-size: 9.5px; font-family: 'Bricolage Grotesque', sans-serif; letter-spacing: -0.3px; }
+.phone-stat-change { font-size: 7px; margin-top: 1px; }
+.up { color: #00C48C; }
+.down { color: #FF5C5C; }
+
+.phone-chart-area {
+  padding: 0 10px 12px;
+  background: #fff;
+  margin: 0 10px 10px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.chart-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0 7px;
+  font-size: 8.5px; font-weight: 700; color: #050D1A;
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+.chart-select {
+  background: #f0f4f8; border: none; border-radius: 6px;
+  font-size: 7px; padding: 3px 6px; color: #5E6E84;
+  font-family: 'DM Sans', sans-serif;
+}
+.chart-legend { display: flex; gap: 8px; margin-top: 5px; }
+.legend-item { display: flex; align-items: center; gap: 3px; font-size: 7px; color: #8a9bb5; }
+.legend-dot { width: 8px; height: 3px; border-radius: 2px; }
+
+/* ─── FLOATING CARDS ─── */
+.float-card {
+  position: absolute;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 11px 16px;
+  box-shadow: 0 12px 40px rgba(5,13,26,0.1), 0 0 0 1px rgba(0,0,0,0.05);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.float-card-1 { top: 40px; right: -55px; animation: floatCard1 5s ease-in-out infinite; }
+.float-card-2 { bottom: 70px; left: -65px; animation: floatCard2 6s ease-in-out 1s infinite; }
+
+@keyframes floatCard1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes floatCard2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+.float-icon {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.float-icon.green { background: linear-gradient(135deg, #E0FAF3, #C6F5E7); }
+.float-icon.blue { background: linear-gradient(135deg, #EEF4FF, #DCE8FF); }
+
+.float-info-label { font-size: 9.5px; color: #8a9bb5; font-weight: 500; margin-bottom: 2px; }
+.float-info-value { font-size: 13px; font-weight: 700; font-family: 'Bricolage Grotesque', sans-serif; letter-spacing: -0.3px; }
+.float-info-value.green { color: #00C48C; }
+.float-info-value.blue { color: var(--blue); }
+
+/* ─── FEATURES ─── */
+.features {
+  padding: 100px 5% 80px;
+  position: relative;
+  background: var(--bg);
+}
+
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(26,110,255,0.15), transparent);
+}
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.eyebrow-line { width: 24px; height: 1.5px; background: var(--blue); border-radius: 2px; opacity: 0.5; }
+
+.section-title {
+  text-align: center;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 60px;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: 3px 3px 0 0;
+}
+.feature-card.blue-card::before { background: linear-gradient(90deg, var(--blue), #00B4FF); }
+.feature-card.green-card::before { background: linear-gradient(90deg, #00C48C, #00E5A8); }
+.feature-card.amber-card::before { background: linear-gradient(90deg, #FF9F45, #FFD085); }
+
+.feature-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(13,27,60,0.12), 0 4px 16px rgba(13,27,60,0.06); }
+.feature-card:hover::before { opacity: 1; }
+
+.feature-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 22px;
+  font-size: 24px;
+  position: relative;
+}
+.feature-icon.blue { background: linear-gradient(135deg, #EEF4FF, #DCE8FF); }
+.feature-icon.green { background: linear-gradient(135deg, #E0FAF3, #C6F5E7); }
+.feature-icon.amber { background: linear-gradient(135deg, #FFF4E0, #FFE8C0); }
+
+.feature-card h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 11px;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.feature-card p { color: var(--muted); font-size: 14.5px; line-height: 1.68; }
+
+/* ─── STATS ROW ─── */
+.stats-row {
+  background: var(--white);
+  padding: 60px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  flex: 1;
+  text-align: center;
+  padding: 28px 20px;
+  position: relative;
+}
+.stat-item + .stat-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: var(--border-soft);
+}
+.stat-num {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-num span { color: var(--blue); }
+.stat-label { font-size: 13.5px; color: var(--muted); font-weight: 400; }
+
+/* ─── CTA BANNER ─── */
+.cta-banner {
+  margin: 20px 5% 100px;
+  background: linear-gradient(145deg, #0A1836 0%, #0D1D40 50%, #0A2050 100%);
+  border-radius: 28px;
+  padding: 64px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(5,13,26,0.2);
+}
+
+/* Decorative elements in CTA */
+.cta-banner::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(26,110,255,0.2) 0%, transparent 65%);
+  border-radius: 50%;
+}
+.cta-banner::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: 30%;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(0,212,140,0.1) 0%, transparent 65%);
+  border-radius: 50%;
+}
+
+.cta-content { position: relative; z-index: 2; flex: 1; }
+
+.cta-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.cta-content h2 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.cta-content h2 span { color: #5AADFF; }
+
+.cta-content p {
+  color: rgba(255,255,255,0.55);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 460px;
+}
+
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 2;
+  min-width: 200px;
+}
+
+.btn-white {
+  background: #fff;
+  color: var(--text);
+  border: none;
+  padding: 16px 28px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+  letter-spacing: -0.2px;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+
+.btn-outline-white {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.85);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  padding: 15px 28px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-outline-white:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #050D1A;
+  padding: 36px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-logo-icon {
+  width: 30px; height: 30px;
+  background: rgba(26,110,255,0.2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-wordmark {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+}
+.footer-wordmark span { color: #5AADFF; }
+footer p { color: rgba(255,255,255,0.35); font-size: 13px; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  nav { padding: 0 4%; }
+  .features-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 4%; height: 60px; }
+  .btn-nav-ghost { display: none; }
+  .btn-download { font-size: 13px; padding: 8px 16px; }
+  .hero { flex-direction: column; padding: 40px 5% 30px; text-align: center; min-height: auto; }
+  .hero-left { max-width: 100%; }
+  .hero h1 { font-size: clamp(32px, 8vw, 42px); }
+  .hero p, .hero h1 { max-width: 100%; }
+  .hero-actions { justify-content: center; }
+  .hero-right { min-height: 380px; width: 100%; }
+  .phone-frame { width: 240px; }
+  .float-card-1 { right: 0; top: 20px; }
+  .float-card-2 { left: 0; bottom: 50px; }
+  .features { padding: 60px 5% 50px; }
+  .features-grid { grid-template-columns: 1fr; max-width: 480px; }
+  .section-sub { margin-bottom: 40px; }
+  .cta-banner { padding: 40px 24px; flex-direction: column; }
+  .cta-actions { width: 100%; }
+  .cta-content h2 { font-size: clamp(22px, 5vw, 28px); }
+  .stats-row { gap: 0; }
+  footer { justify-content: center; text-align: center; padding: 28px 5%; }
+}
+
+@media (max-width: 480px) {
+  nav { padding: 0 4%; height: 56px; }
+  .logo { font-size: 17px; gap: 8px; }
+  .logo-icon { width: 30px; height: 30px; }
+  .btn-download { font-size: 12px; padding: 7px 14px; }
+  .float-card { display: none; }
+  .phone-frame { width: 200px; padding: 8px; border-radius: 28px; }
+  .phone-frame::before { display: none; }
+  .phone-screen { border-radius: 22px; }
+  .phone-profit-card { margin: 5px 6px; padding: 10px; }
+  .phone-profit-card::before, .phone-profit-card::after { display: none; }
+  .profit-value { font-size: 20px; }
+  .phone-stats { gap: 4px; padding: 0 6px 6px; }
+  .phone-stat { padding: 5px 6px; }
+  .phone-chart-area { margin: 0 6px 6px; padding: 0 6px 8px; }
+  .hero-right { min-height: 320px; }
+  .hero h1 { font-size: clamp(26px, 7vw, 34px); }
+  .hero p { font-size: 15px; margin-bottom: 30px; }
+  .hero-actions { width: 100%; flex-direction: column; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .features { padding: 40px 4% 40px; }
+  .feature-card { padding: 24px 20px; }
+  .cta-banner { padding: 32px 20px; border-radius: 20px; }
+  .cta-eyebrow { font-size: 10px; }
+  .cta-actions { gap: 8px; }
+  .btn-white, .btn-outline-white { font-size: 14px; padding: 14px 20px; }
+  .stats-row { flex-direction: column; gap: 0; padding: 30px 5%; }
+  .stat-item { padding: 20px 16px; }
+  .stat-item + .stat-item::before { top: 0; bottom: auto; left: 20%; right: 20%; width: auto; height: 1px; }
+  .stat-num { font-size: 30px; }
+  footer { padding: 24px 4%; }
+  .footer-logo { gap: 8px; }
+  .footer-wordmark { font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon" style="overflow:hidden;">
+      <img src="icon.jpeg" alt="OwnerDash" style="width:100%;height:100%;object-fit:cover;" />
+    </div>
+    Owner<span>Dash</span>
+  </a>
+  <div class="nav-right">
+    <a href="#" class="btn-nav-ghost">Features</a>
+    <a href="https://github.com/Al-Abaaska/ownderdash/releases/download/v1.0/app-release.apk" class="btn-download">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Business Finance Dashboard
+    </div>
+    <h1>Master Your<br/><span class="accent">Business Finance.</span></h1>
+    <p>From Net Profit to Growth Trends — a full-suite dashboard for smarter business decisions. Available on Android and Web.</p>
+    <div class="hero-actions">
+      <a href="https://github.com/Al-Abaaska/ownderdash/releases/download/v1.0/app-release.apk" class="btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Android App
+      </a>
+      <a href="http://178.238.238.207/" target="_blank" class="btn-secondary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        Web Version
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="phone-glow"></div>
+    <div class="phone-wrap">
+      <!-- Float top right -->
+      <div class="float-card float-card-1">
+        <div class="float-icon green">📈</div>
+        <div>
+          <div class="float-info-label">Growth</div>
+          <div class="float-info-value green">+94.3%</div>
+        </div>
+      </div>
+
+      <!-- Phone -->
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-status">
+            <span class="phone-status-title">Dashboard</span>
+            <div class="phone-status-right">
+              <span class="status-dot"></span>
+              <span>Live</span>
+              <span>🔔</span>
+            </div>
+          </div>
+          <div class="phone-profit-card">
+            <div class="profit-label">Net Profit</div>
+            <div class="profit-value">$98.5K</div>
+            <span class="profit-badge">↑ 17.4% vs last month</span>
+          </div>
+          <div class="phone-stats">
+            <div class="phone-stat">
+              <div class="phone-stat-label">Income</div>
+              <div class="phone-stat-value">$109.6K</div>
+              <div class="phone-stat-change up">↑ 94.3%</div>
+            </div>
+            <div class="phone-stat">
+              <div class="phone-stat-label">Expenses</div>
+              <div class="phone-stat-value">$11.2K</div>
+              <div class="phone-stat-change down">↓ 77.0%</div>
+            </div>
+            <div class="phone-stat">
+              <div class="phone-stat-label">Margin</div>
+              <div class="phone-stat-value">97.1%</div>
+              <div class="phone-stat-change up">↑ 97.1%</div>
+            </div>
+          </div>
+          <div class="phone-chart-area">
+            <div class="chart-header">
+              <span>Overview</span>
+              <select class="chart-select"><option>Monthly</option></select>
+            </div>
+            <svg viewBox="0 0 230 52" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:52px;">
+              <defs>
+                <linearGradient id="incomeGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1A6EFF" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#1A6EFF" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <polygon points="0,42 20,37 40,31 60,33 80,21 100,19 120,23 140,16 160,19 180,13 200,11 230,9 230,52 0,52" fill="url(#incomeGrad)"/>
+              <polyline points="0,42 20,37 40,31 60,33 80,21 100,19 120,23 140,16 160,19 180,13 200,11 230,9" fill="none" stroke="#1A6EFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="0,47 20,45 40,46 60,44 80,42 100,40 120,44 140,42 160,40 180,38 200,41 230,37" fill="none" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <div class="chart-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#1A6EFF;"></div>Income</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#CBD5E1;"></div>Expenses</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Float bottom left -->
+      <div class="float-card float-card-2">
+        <div class="float-icon blue">💰</div>
+        <div>
+          <div class="float-info-label">Invoice Paid</div>
+          <div class="float-info-value blue">$64.6K</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div style="background:var(--white); border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);">
+  <div class="stats-row">
+    <div class="stat-item">
+      <div class="stat-num">$2.4<span>M+</span></div>
+      <div class="stat-label">Revenue tracked</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">97<span>%</span></div>
+      <div class="stat-label">Avg. profit margin</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5<span>K+</span></div>
+      <div class="stat-label">Active businesses</div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-eyebrow">
+    <span class="eyebrow-line"></span>
+    Features
+    <span class="eyebrow-line"></span>
+  </div>
+  <h2 class="section-title">Everything you need to<br/>run smarter</h2>
+  <p class="section-sub">OwnerDash gives you real-time visibility into every corner of your business finances.</p>
+
+  <div class="features-grid">
+    <div class="feature-card blue-card">
+      <div class="feature-icon blue">📊</div>
+      <h3>Net Profit Tracking</h3>
+      <p>See your real-time net profit, income, and expenses at a glance with clear percentage changes month over month.</p>
+    </div>
+    <div class="feature-card green-card">
+      <div class="feature-icon green">📈</div>
+      <h3>Growth Trends</h3>
+      <p>Visualize revenue and expense analytics over time. Understand where your business is growing and where to cut.</p>
+    </div>
+    <div class="feature-card amber-card">
+      <div class="feature-icon amber">🧾</div>
+      <h3>Transactions & Invoices</h3>
+      <p>Track every payment, invoice, and transaction. Know instantly what's paid, pending, and overdue.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner" style="margin: 0 5% 100px;">
+  <div class="cta-content">
+    <div class="cta-eyebrow">🚀 &nbsp; Get started today</div>
+    <h2>You're one decision away<br/>from <span>better business.</span></h2>
+    <p>We built OwnerDash to help you understand your numbers, track growth, and make smarter moves every day. Download now and take control of your business finance.</p>
+  </div>
+  <div class="cta-actions">
+    <a href="https://github.com/Al-Abaaska/ownderdash/releases/download/v1.0/app-release.apk" class="btn-white">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download APK
+    </a>
+    <a href="http://178.238.238.207/" target="_blank" class="btn-outline-white">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+      Open Web App
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-icon" style="overflow:hidden;">
+      <img src="icon.jpeg" alt="OwnerDash" style="width:100%;height:100%;object-fit:cover;" />
+    </div>
+    <div class="footer-wordmark">Owner<span>Dash</span></div>
+  </div>
+  <p>© 2026 OwnerDash. Built for business owners who mean business.</p>
+</footer>
+
+</body>
+</html>
